@@ -1,0 +1,69 @@
+{
+    "name": "twigger/blade-themes",
+    "description": "A UI framework with dynamic theme injection to dynamically change the appearance of a site",
+    "type": "library",
+    "keywords": [
+        "laravel",
+        "blade",
+        "themes",
+        "bootstrap",
+        "material",
+        "design",
+        "ui"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/tobytwigger/blade-themes",
+    "readme": "https://github.com/tobytwigger/blade-themes/blob/master/README.md",
+    "authors": [
+        {
+            "name": "Toby Twigger",
+            "email": "tobytwigger1@gmail.com",
+            "homepage": "https://github.com/tobytwigger"
+        }
+    ],
+    "support": {
+        "email": "tobytwigger1@gmail.com",
+        "issues":"https://github.com/tobytwigger/blade-themes/issues",
+        "docs":"https://tobytwigger.github.io/blade-themes/"
+    },
+    "funding": [
+        {
+            "type": "buymeacoffee",
+            "url": "https://www.buymeacoffee.com/translate"
+        }
+    ],
+    "require": {
+        "laravel/framework": "^8.9",
+        "php": "^7.2|^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.4",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "orchestra/testbench": "^6.2"
+    },
+    "suggest": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Twigger\\Blade\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Twigger\\Blade\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Twigger\\Blade\\Theme\\ThemeServiceProvider"
+            ],
+            "aliases": {
+                "Theme": "Twigger\\Blade\\Theme\\Theme"
+            }
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --colors=always --process-isolation --verbose --configuration phpunit.xml"
+    }
+}
