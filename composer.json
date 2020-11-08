@@ -50,7 +50,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Twigger\\Blade\\Tests\\": "tests/"
+            "Twigger\\Tests\\Blade\\": "tests/"
         }
     },
     "extra": {

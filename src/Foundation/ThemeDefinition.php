@@ -4,6 +4,7 @@ namespace Twigger\Blade\Foundation;
 
 abstract class ThemeDefinition
 {
+
     /**
      * @return string
      */
@@ -14,5 +15,7 @@ abstract class ThemeDefinition
         return \Illuminate\Support\Str::kebab(static::name());
     }
 
-    abstract public static function button(): ComponentDefinition;
+    abstract public static function button(): string;
+
+
 }

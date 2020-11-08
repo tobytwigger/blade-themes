@@ -10,13 +10,13 @@ use Twigger\Blade\Themes\Material\Components\Button;
 class MaterialTheme extends ThemeDefinition
 {
 
-    public static function name(): string
+    public function name(): string
     {
         return 'Material';
     }
 
-    public static function button(): ComponentDefinition
+    public function button(): string
     {
-        return ComponentDefinition::define(Button::componentName(), Button::class);
+        return Button::class;
     }
 }

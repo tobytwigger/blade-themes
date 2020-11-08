@@ -2,9 +2,14 @@
 
 namespace Twigger\Blade\Foundation;
 
+use Twigger\Blade\Themes\Material\MaterialTheme;
+
 class ThemeStore
 {
 
+    /**
+     * @var ThemeDefinition[]
+     */
     private $themes = [];
 
     public function registerTheme(ThemeDefinition $themeDefinition)
@@ -17,7 +22,7 @@ class ThemeStore
         return array_key_exists($id, $this->themes);
     }
 
-    public function getTheme(string $id)
+    public function getTheme(string $id): ThemeDefinition
     {
         if($this->hasTheme($id)) {
             return $this->themes[$id];
@@ -27,12 +32,15 @@ class ThemeStore
         );
     }
 
-    public function allThemes()
+    /**
+     * @return ThemeDefinition[]
+     */
+    public function allThemes(): array
     {
         return $this->themes;
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->themes);
     }
