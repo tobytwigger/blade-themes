@@ -2,6 +2,7 @@
 
 namespace Twigger\Blade\Foundation;
 
+use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Support\Facades\Blade;
 
 class ThemeLoader
@@ -10,7 +11,8 @@ class ThemeLoader
     /**
      * @var ThemeStore
      */
-    private $store;
+    private $themeStore;
+
     /**
      * @var ComponentLocator
      */
@@ -21,19 +23,29 @@ class ThemeLoader
      */
     private $schemaStore;
 
-    public function __construct(ThemeStore $store, SchemaStore $schemaStore, ComponentLocator $componentLocator)
+    /**
+     * @var Config
+     */
+    private $config;
+
+    public function __construct(ThemeStore $themeStore, SchemaStore $schemaStore, ComponentLocator $componentLocator, Config $config)
     {
-        $this->store = $store;
-        $this->schemaStore = $componentLocator;
+        $this->themeStore = $themeStore;
+        $this->componentLocator = $componentLocator;
         $this->schemaStore = $schemaStore;
+        $this->config = $config;
     }
 
     public function load(string $theme)
     {
-        $themeDefinition = $this->store->getTheme($theme);
+        $themeDefinition = $this->themeStore->getTheme($theme);
 
         foreach($this->schemaStore->allSchemas() as $schema) {
-            Blade::component('theme::' . $schema::componentName(), $this->componentLocator->getComponentClassFromId($themeDefinition, $schema::componentName()));
+            Blade::component(
+                $this->componentLocator->getComponentClassFromId($themeDefinition, $schema->tag()),
+                $schema->tag(),
+                $this->config->get('tag-prefix', 'theme')
+            );
         }
     }
 

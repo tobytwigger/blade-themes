@@ -2,12 +2,20 @@
 
 namespace Twigger\Blade\Schema;
 
-abstract class Button extends AbstractSchema
+use Twigger\Blade\Foundation\SchemaDefinition;
+use Twigger\Blade\Themes\Material\Components\Button as MaterialButton;
+
+abstract class Button extends SchemaDefinition
 {
 
-    public static function componentName(): string
+    public function tag(): string
     {
         return 'button';
+    }
+
+    public static function defaultImplementation(): string
+    {
+        return MaterialButton::class;
     }
 
 }

@@ -55,7 +55,7 @@ class ThemeServiceProvider extends ServiceProvider
 
     private function registerThemes()
     {
-        foreach($this->themes as $theme) {
+        foreach(static::$themes as $theme) {
             Theme::registerTheme($theme);
         }
     }

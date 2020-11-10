@@ -2,6 +2,8 @@
 
 namespace Twigger\Blade\Foundation;
 
+use Illuminate\Support\Str;
+
 class ComponentLocator
 {
 
@@ -15,25 +17,19 @@ class ComponentLocator
         $this->schemaStore = $schemaStore;
     }
 
-    public function getComponentClassFromId(ThemeDefinition $themeDefinition, string $component): string
+    public function getComponentClassFromId(ThemeDefinition $themeDefinition, string $componentId): string
     {
-        if(method_exists($themeDefinition, $component)) {
-            return $themeDefinition::$component();
+        $componentMethod = Str::camel($componentId);
+        if(method_exists($themeDefinition, Str::camel($componentMethod))) {
+            return $themeDefinition->$componentMethod();
         }
-        return $component::defaultImplementation();
-    }
-
-    /** Get all the components from a theme
-     * @param ThemeDefinition $themeDefinition
-     * @return array
-     */
-    public function getAllComponentClasses(ThemeDefinition $themeDefinition): array
-    {
-        $componentClasses = [];
-        foreach($this->schemaStore->allSchemas() as $schema) {
-            $componentClasses[] = $this->getComponentClassFromId($themeDefinition, $schema::componentName());
+        if($this->schemaStore->hasSchema($componentId)) {
+            $schema = $this->schemaStore->getSchema($componentId);
+            return $schema::defaultImplementation();
         }
-        return $componentClasses;
+        throw new \Exception(
+            sprintf('Could not find the component [%s]', $componentId)
+        );
     }
 
 }

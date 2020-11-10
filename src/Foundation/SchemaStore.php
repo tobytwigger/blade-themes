@@ -2,20 +2,20 @@
 
 namespace Twigger\Blade\Foundation;
 
-use Twigger\Blade\Schema\AbstractSchema;
+use Twigger\Blade\Foundation\SchemaDefinition;
 
 class SchemaStore
 {
 
     /**
-     * @var AbstractSchema[]
+     * @var SchemaDefinition[]
      */
     private $schemas = [];
 
-    public function registerSchema(AbstractSchema $schemaDefinition)
+    public function registerSchema(SchemaDefinition $schemaDefinition)
     {
         // TODO Only if not duplicate
-        $this->schemas[$schemaDefinition::id()] = $schemaDefinition;
+        $this->schemas[$schemaDefinition->tag()] = $schemaDefinition;
     }
 
     public function hasSchema(string $id)
@@ -23,7 +23,7 @@ class SchemaStore
         return array_key_exists($id, $this->schemas);
     }
 
-    public function getSchema(string $id): AbstractSchema
+    public function getSchema(string $id): SchemaDefinition
     {
         if($this->hasSchema($id)) {
             return $this->schemas[$id];
@@ -34,7 +34,7 @@ class SchemaStore
     }
 
     /**
-     * @return AbstractSchema[]
+     * @return SchemaDefinition[]
      */
     public function allSchemas(): array
     {

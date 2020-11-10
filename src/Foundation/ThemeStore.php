@@ -14,7 +14,7 @@ class ThemeStore
 
     public function registerTheme(ThemeDefinition $themeDefinition)
     {
-        $this->themes[$themeDefinition::id()] = $themeDefinition;
+        $this->themes[$themeDefinition->id()] = $themeDefinition;
     }
 
     public function hasTheme(string $id)

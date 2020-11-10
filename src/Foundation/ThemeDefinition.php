@@ -8,14 +8,11 @@ abstract class ThemeDefinition
     /**
      * @return string
      */
-    abstract public static function name(): string;
+    abstract public function name(): string;
 
-    public static function id(): string
+    public function id(): string
     {
-        return \Illuminate\Support\Str::kebab(static::name());
+        return \Illuminate\Support\Str::kebab($this->name());
     }
-
-    abstract public static function button(): string;
-
 
 }
