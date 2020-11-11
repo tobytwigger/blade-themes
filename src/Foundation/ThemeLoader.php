@@ -42,9 +42,9 @@ class ThemeLoader
 
         foreach($this->schemaStore->allSchemas() as $schema) {
             Blade::component(
-                $this->componentLocator->getComponentClassFromId($themeDefinition, $schema->tag()),
+                $this->componentLocator->getComponentClassFromTag($themeDefinition, $schema->tag()),
                 $schema->tag(),
-                $this->config->get('tag-prefix', 'theme')
+                $this->config->get('themes.tag-prefix', 'theme')
             );
         }
     }

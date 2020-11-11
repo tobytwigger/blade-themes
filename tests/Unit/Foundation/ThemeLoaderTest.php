@@ -36,15 +36,15 @@ class ThemeLoaderTest extends TestCase
         ]);
 
         $componentLocator = $this->prophesize(ComponentLocator::class);
-        $componentLocator->getComponentClassFromId(Argument::that(function($arg) use ($theme) {
+        $componentLocator->getComponentClassFromTag(Argument::that(function($arg) use ($theme) {
             return $theme->reveal() === $arg;
         }), 'component-1')->willReturn('Schema1/Class');
-        $componentLocator->getComponentClassFromId(Argument::that(function($arg) use ($theme) {
+        $componentLocator->getComponentClassFromTag(Argument::that(function($arg) use ($theme) {
             return $theme->reveal() === $arg;
         }), 'component-2')->willReturn('Schema2/Class');
 
         $config = $this->prophesize(Repository::class);
-        $config->get('tag-prefix', Argument::type('string'))->willReturn('test');
+        $config->get('themes.tag-prefix', Argument::type('string'))->willReturn('test');
 
         $bladeCompiler = $this->prophesize(BladeCompiler::class);
         $bladeCompiler->component('Schema1/Class', 'component-1', 'test')->shouldBeCalled();

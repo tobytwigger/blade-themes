@@ -1,17 +1,21 @@
 <?php
 
-namespace Twigger\Blade\Foundation;
+namespace Twigger\Blade;
 
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Support\ServiceProvider;
+use Twigger\Blade\Foundation\ComponentLocator;
+use Twigger\Blade\Foundation\SchemaStore;
+use Twigger\Blade\Foundation\Theme;
+use Twigger\Blade\Foundation\ThemeDefinition;
+use Twigger\Blade\Foundation\ThemeLoader;
+use Twigger\Blade\Foundation\ThemeStore;
 use Twigger\Blade\Themes\Material\MaterialTheme;
 
 class ThemeServiceProvider extends ServiceProvider
 {
 
-    protected static $themes = [
-        MaterialTheme::class
-    ];
+    public static $themes = [];
 
     public static $theme = null;
 
@@ -22,12 +26,12 @@ class ThemeServiceProvider extends ServiceProvider
         $this->registerConfig();
     }
 
-    public function addTheme(string $theme)
+    public static function addTheme(ThemeDefinition $theme)
     {
         static::$themes[] = $theme;
     }
 
-    public function useTheme(string $theme)
+    public static function useTheme(string $theme)
     {
         static::$theme = $theme;
     }
@@ -37,10 +41,11 @@ class ThemeServiceProvider extends ServiceProvider
         $this->registerThemes();
         $this->registerSchemas();
 
-        $this->app->make(ThemeLoader::class)->load(
-            static::$theme ?? config('themes.theme')
-        );
-
+        if(static::$theme !== null || config('themes.theme') !== null) {
+            $this->app->make(ThemeLoader::class)->load(
+                static::$theme ?? config('themes.theme')
+            );
+        }
 
         // TODO can call component ->ifTheme('material', function($component) {
         // sth here on component and return it IF the theme is material. Allows us to use custom features from frameworks.
@@ -63,8 +68,13 @@ class ThemeServiceProvider extends ServiceProvider
     private function registerSchemas()
     {
         $schemaStore = $this->app->make(SchemaStore::class);
-        foreach($this->app->make(Config::class) as $schema) {
-            $schemaStore->registerSchema($schema);
+        $componentLocator = $this->app->make(ComponentLocator::class);
+
+        foreach($this->app->make(Config::class)->get('themes.components') as $schema) {
+            $class = $componentLocator->getImplementationClassFromSchema($schema);
+            $schemaStore->registerSchema(
+                $this->app->make($class)
+            );
         }
     }
 
