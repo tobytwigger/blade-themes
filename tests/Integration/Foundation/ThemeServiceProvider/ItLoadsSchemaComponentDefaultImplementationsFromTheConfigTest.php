@@ -60,7 +60,7 @@ class ItLoadsSchemaComponentDefaultImplementationsFromTheConfigTest extends Lara
 abstract class ItLoadsSchemaComponentDefaultImplementationsFromTheConfigTestDummySchema extends SchemaDefinition
 {
 
-    public function tag(): string
+    public static function tag(): string
     {
         return 'schema1';
     }
@@ -74,7 +74,7 @@ abstract class ItLoadsSchemaComponentDefaultImplementationsFromTheConfigTestDumm
 abstract class ItLoadsSchemaComponentDefaultImplementationsFromTheConfigTestDummySchemaTwo extends SchemaDefinition
 {
 
-    public function tag(): string
+    public static function tag(): string
     {
         return 'schema2';
     }
@@ -93,7 +93,7 @@ class ItLoadsSchemaComponentDefaultImplementationsFromTheConfigTestDummySchemaRe
         return '<button></button>';
     }
 
-    public function tag(): string
+    public static function tag(): string
     {
         return 'schema1';
     }
@@ -112,7 +112,7 @@ class ItLoadsSchemaComponentDefaultImplementationsFromTheConfigTestDummySchemaRe
         return '<button></button>';
     }
 
-    public function tag(): string
+    public static function tag(): string
     {
         return 'schema2';
     }

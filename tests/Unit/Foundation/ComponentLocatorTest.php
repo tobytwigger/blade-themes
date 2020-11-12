@@ -34,7 +34,7 @@ class ComponentLocatorTest extends TestCase
 
         $schemaStore = $this->prophesize(SchemaStore::class);
         $schemaStore->hasSchema('some-other-schema')->willReturn(true);
-        $schemaStore->getSchema('some-other-schema')->willReturn($someSchema);
+        $schemaStore->getSchema('some-other-schema')->willReturn(ComponentLocatorTestDummySchemaDefinition::class);
 
         $componentLocator = new ComponentLocator($schemaStore->reveal());
         $this->assertSame(
@@ -132,7 +132,7 @@ class ComponentLocatorTestDummySchemaDefinition extends SchemaDefinition
 {
     public static $defaultImplementation;
 
-    public function tag(): string
+    public static function tag(): string
     {
         return 'some-abstract-schema';
     }
@@ -153,7 +153,7 @@ abstract class ComponentLocatorTestDummySchemaDefinitionAbstract extends SchemaD
 {
     public static $defaultImplementation;
 
-    public function tag(): string
+    public static function tag(): string
     {
         return 'some-abstract-schema';
     }

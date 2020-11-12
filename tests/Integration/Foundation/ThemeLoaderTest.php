@@ -74,7 +74,7 @@ class ThemeLoaderTestDummyFirstComponent extends SchemaDefinition
         return '<button>Btn</button>';
     }
 
-    public function tag(): string
+    public static function tag(): string
     {
         return 'first-component';
     }
@@ -93,7 +93,7 @@ class ThemeLoaderTestDummySecondComponent extends SchemaDefinition
         return '<button>Btn2</button>';
     }
 
-    public function tag(): string
+    public static function tag(): string
     {
         return 'second-component';
     }

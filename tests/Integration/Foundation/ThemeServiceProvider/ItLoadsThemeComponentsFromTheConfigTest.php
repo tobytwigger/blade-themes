@@ -65,7 +65,7 @@ class ItLoadsThemeComponentsFromTheConfigTestDummySchema extends SchemaDefinitio
         return '<button></button>';
     }
 
-    public function tag(): string
+    public static function tag(): string
     {
         return 'schema1';
     }
@@ -84,7 +84,7 @@ class ItLoadsThemeComponentsFromTheConfigTestDummySchemaTwo extends SchemaDefini
         return '<button></button>';
     }
 
-    public function tag(): string
+    public static function tag(): string
     {
         return 'schema2';
     }

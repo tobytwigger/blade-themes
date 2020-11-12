@@ -1,1 +1,3 @@
-SOME TEST HERE
+<button {{ $attributes }} class="btn btn-info">
+    {{$slot}}
+</button>
