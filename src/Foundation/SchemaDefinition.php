@@ -8,7 +8,7 @@ use Illuminate\View\Component;
 abstract class SchemaDefinition extends Component
 {
 
-    abstract public function tag(): string;
+    abstract public static function tag(): string;
 
     abstract public static function defaultImplementation(): string;
 

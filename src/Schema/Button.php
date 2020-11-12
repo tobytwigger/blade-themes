@@ -8,7 +8,7 @@ use Twigger\Blade\Themes\Material\Components\Button as MaterialButton;
 abstract class Button extends SchemaDefinition
 {
 
-    public function tag(): string
+    public static function tag(): string
     {
         return 'button';
     }

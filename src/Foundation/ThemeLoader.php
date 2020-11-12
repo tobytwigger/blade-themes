@@ -41,8 +41,8 @@ class ThemeLoader
         $themeDefinition = $this->themeStore->getTheme($theme);
         foreach($this->schemaStore->allSchemas() as $schema) {
             Blade::component(
-                $this->componentLocator->getComponentClassFromTag($themeDefinition, $schema->tag()),
-                $schema->tag(),
+                $this->componentLocator->getComponentClassFromTag($themeDefinition, $schema::tag()),
+                $schema::tag(),
                 $this->config->get('themes.tag-prefix', 'theme')
             );
         }

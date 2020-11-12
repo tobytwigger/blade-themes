@@ -2,7 +2,7 @@
 
 namespace Twigger\Blade\Foundation;
 
-use Twigger\Blade\Foundation\SchemaDefinition;
+use Twigger\Blade\Schema\Button;
 
 class SchemaStore
 {
@@ -12,10 +12,12 @@ class SchemaStore
      */
     private $schemas = [];
 
-    public function registerSchema(SchemaDefinition $schemaDefinition)
+    public function registerSchema(string $class)
     {
-        // TODO Only if not duplicate
-        $this->schemas[$schemaDefinition->tag()] = $schemaDefinition;
+        if(!is_subclass_of($class, SchemaDefinition::class)) {
+            throw new \Exception(sprintf('The schema class [%s] must extend %s', $class, SchemaDefinition::class));
+        }
+        $this->schemas[$class::tag()] = $class;
     }
 
     public function hasSchema(string $id)
@@ -23,7 +25,7 @@ class SchemaStore
         return array_key_exists($id, $this->schemas);
     }
 
-    public function getSchema(string $id): SchemaDefinition
+    public function getSchema(string $id): string
     {
         if($this->hasSchema($id)) {
             return $this->schemas[$id];

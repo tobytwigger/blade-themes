@@ -8,11 +8,10 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\ServiceProvider;
 use Twigger\Blade\Foundation\ComponentLocator;
 use Twigger\Blade\Foundation\SchemaStore;
-use Twigger\Blade\Theme;
+use Twigger\Blade\Foundation\ScriptStore;
 use Twigger\Blade\Foundation\ThemeDefinition;
 use Twigger\Blade\Foundation\ThemeLoader;
 use Twigger\Blade\Foundation\ThemeStore;
-use Twigger\Blade\Themes\Material\MaterialTheme;
 
 class ThemeServiceProvider extends ServiceProvider
 {
@@ -25,6 +24,7 @@ class ThemeServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ThemeStore::class);
         $this->app->singleton(SchemaStore::class);
+        $this->app->singleton(ScriptStore::class);
         $this->registerConfig();
     }
 
@@ -40,8 +40,6 @@ class ThemeServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        static::addTheme(new MaterialTheme());
-
         $this->loadViewsFrom(__DIR__ . '/views', 'theme');
 
         $this->registerThemes();
@@ -56,6 +54,10 @@ class ThemeServiceProvider extends ServiceProvider
     private function loadTheme()
     {
         $themeToLoad = static::$theme ?? config('themes.theme');
+
+        if($themeToLoad === null) {
+            return;
+        }
 
         if($this->app->make(Repository::class)->pull(static::class . '.cachedTheme') !== $themeToLoad) {
             Artisan::call('view:clear');
@@ -83,13 +85,8 @@ class ThemeServiceProvider extends ServiceProvider
         $componentLocator = $this->app->make(ComponentLocator::class);
 
         foreach($this->app->make(Config::class)->get('themes.components') as $schema) {
-            if($schema === 'Twigger\Blade\Schema\Select') {
-                $class = $componentLocator->getImplementationClassFromSchema($schema);
-            }
             $class = $componentLocator->getImplementationClassFromSchema($schema);
-            $schemaStore->registerSchema(
-                $this->app->make($class)
-            );
+            $schemaStore->registerSchema($class);
         }
 
     }
