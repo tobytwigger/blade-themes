@@ -2,7 +2,7 @@
 
 namespace Twigger\Tests\Blade\Unit\Foundation;
 
-use Twigger\Blade\Foundation\Theme;
+use Twigger\Blade\Theme;
 use Twigger\Blade\Foundation\ThemeStore;
 use Twigger\Tests\Blade\TestCase;
 

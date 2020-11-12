@@ -39,7 +39,6 @@ class ThemeLoader
     public function load(string $theme)
     {
         $themeDefinition = $this->themeStore->getTheme($theme);
-
         foreach($this->schemaStore->allSchemas() as $schema) {
             Blade::component(
                 $this->componentLocator->getComponentClassFromTag($themeDefinition, $schema->tag()),

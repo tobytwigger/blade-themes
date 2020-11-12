@@ -1,17 +1,17 @@
 <?php
 
-namespace Twigger\Blade\Themes\Material;
+namespace Twigger\Blade\Themes\Bootstrap;
 
 use Twigger\Blade\Foundation\ThemeDefinition;
-use Twigger\Blade\Themes\Material\Components\Button;
-use Twigger\Blade\Themes\Material\Components\Select;
+use Twigger\Blade\Themes\Bootstrap\Components\Button;
+use Twigger\Blade\Themes\Bootstrap\Components\Select;
 
-class MaterialTheme extends ThemeDefinition
+class BootstrapTheme extends ThemeDefinition
 {
 
     public function name(): string
     {
-        return 'Material';
+        return 'Bootstrap';
     }
 
     public function button(): string

@@ -56,7 +56,9 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Twigger\\Blade\\Theme\\ThemeServiceProvider"
+                "Twigger\\Blade\\Themes\\Bootstrap\\BootstrapThemeServiceProvider",
+                "Twigger\\Blade\\Themes\\Material\\MaterialThemeServiceProvider",
+                "Twigger\\Blade\\ThemeServiceProvider"
             ],
             "aliases": {
                 "Theme": "Twigger\\Blade\\Theme\\Theme"

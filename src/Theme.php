@@ -1,8 +1,9 @@
 <?php
 
-namespace Twigger\Blade\Foundation;
+namespace Twigger\Blade;
 
 use Illuminate\Support\Facades\Facade;
+use Twigger\Blade\Foundation\ThemeStore;
 
 class Theme extends Facade
 {

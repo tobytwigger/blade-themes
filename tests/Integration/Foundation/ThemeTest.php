@@ -2,8 +2,7 @@
 
 namespace Twigger\Tests\Blade\Integration\Foundation;
 
-use Twigger\Blade\Foundation\Theme;
-use Twigger\Blade\Foundation\ThemeDefinition;
+use Twigger\Blade\Theme;
 use Twigger\Blade\Foundation\ThemeStore;
 use Twigger\Tests\Blade\LaravelTestCase;
 

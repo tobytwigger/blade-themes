@@ -1,6 +1,6 @@
 <?php
 
-namespace Twigger\Blade\Themes\Material\Components;
+namespace Twigger\Blade\Themes\Bootstrap\Components;
 
 
 use Twigger\Blade\Schema\Button as ButtonSchema;
@@ -10,6 +10,6 @@ class Button extends ButtonSchema
 
     public function render()
     {
-        return view('material-theme::button');
+        return view('bootstrap-theme::button');
     }
 }
