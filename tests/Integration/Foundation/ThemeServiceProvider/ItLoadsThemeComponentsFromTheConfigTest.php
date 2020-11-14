@@ -51,8 +51,8 @@ class ItLoadsThemeComponentsFromTheConfigTest extends LaravelTestCase
         $this->assertArrayHasKey('schema1', $schemas);
         $this->assertArrayHasKey('schema2', $schemas);
 
-        $this->assertInstanceOf(ItLoadsThemeComponentsFromTheConfigTestDummySchema::class, $schemas['schema1']);
-        $this->assertInstanceOf(ItLoadsThemeComponentsFromTheConfigTestDummySchemaTwo::class, $schemas['schema2']);
+        $this->assertEquals(ItLoadsThemeComponentsFromTheConfigTestDummySchema::class, $schemas['schema1']);
+        $this->assertEquals(ItLoadsThemeComponentsFromTheConfigTestDummySchemaTwo::class, $schemas['schema2']);
     }
 
 }

@@ -51,8 +51,8 @@ class ItLoadsSchemaComponentDefaultImplementationsFromTheConfigTest extends Lara
         $this->assertArrayHasKey('schema1', $schemas);
         $this->assertArrayHasKey('schema2', $schemas);
 
-        $this->assertInstanceOf(ItLoadsSchemaComponentDefaultImplementationsFromTheConfigTestDummySchemaReal::class, $schemas['schema1']);
-        $this->assertInstanceOf(ItLoadsSchemaComponentDefaultImplementationsFromTheConfigTestDummySchemaRealTwo::class, $schemas['schema2']);
+        $this->assertEquals(ItLoadsSchemaComponentDefaultImplementationsFromTheConfigTestDummySchemaReal::class, $schemas['schema1']);
+        $this->assertEquals(ItLoadsSchemaComponentDefaultImplementationsFromTheConfigTestDummySchemaRealTwo::class, $schemas['schema2']);
     }
 
 }

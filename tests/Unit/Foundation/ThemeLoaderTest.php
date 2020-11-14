@@ -18,28 +18,27 @@ class ThemeLoaderTest extends TestCase
 {
 
     /** @test */
-    public function it_adds_blade_components_for_each_of_the_schemas(){
+    public function it_adds_blade_components_for_each_of_the_schemas()
+    {
         $theme = $this->prophesize(ThemeDefinition::class);
 
         $themeStore = $this->prophesize(ThemeStore::class);
         $themeStore->getTheme('test-theme')->willReturn($theme->reveal());
 
-        $schema1 = $this->prophesize(SchemaDefinition::class);
-        $schema1->tag()->willReturn('component-1');
-        $schema2 = $this->prophesize(SchemaDefinition::class);
-        $schema2->tag()->willReturn('component-2');
+        ThemeLoaderTestDummySchemaOne::$tag = 'component-1';
+        ThemeLoaderTestDummySchemaTwo::$tag = 'component-2';
 
         $schemaStore = $this->prophesize(SchemaStore::class);
         $schemaStore->allSchemas()->willReturn([
-            $schema1->reveal(),
-            $schema2->reveal()
+            ThemeLoaderTestDummySchemaOne::class,
+            ThemeLoaderTestDummySchemaTwo::class
         ]);
 
         $componentLocator = $this->prophesize(ComponentLocator::class);
-        $componentLocator->getComponentClassFromTag(Argument::that(function($arg) use ($theme) {
+        $componentLocator->getComponentClassFromTag(Argument::that(function ($arg) use ($theme) {
             return $theme->reveal() === $arg;
         }), 'component-1')->willReturn('Schema1/Class');
-        $componentLocator->getComponentClassFromTag(Argument::that(function($arg) use ($theme) {
+        $componentLocator->getComponentClassFromTag(Argument::that(function ($arg) use ($theme) {
             return $theme->reveal() === $arg;
         }), 'component-2')->willReturn('Schema2/Class');
 
@@ -60,4 +59,87 @@ class ThemeLoaderTest extends TestCase
         $themeLoader->load('test-theme');
     }
 
+    /** @test */
+    public function it_uses_the_given_tag_prefix()
+    {
+        $theme = $this->prophesize(ThemeDefinition::class);
+
+        $themeStore = $this->prophesize(ThemeStore::class);
+        $themeStore->getTheme('test-theme')->willReturn($theme->reveal());
+
+        ThemeLoaderTestDummySchemaOne::$tag = 'component-1';
+        ThemeLoaderTestDummySchemaTwo::$tag = 'component-2';
+
+        $schemaStore = $this->prophesize(SchemaStore::class);
+        $schemaStore->allSchemas()->willReturn([
+            ThemeLoaderTestDummySchemaOne::class,
+            ThemeLoaderTestDummySchemaTwo::class
+        ]);
+
+        $componentLocator = $this->prophesize(ComponentLocator::class);
+        $componentLocator->getComponentClassFromTag(Argument::that(function ($arg) use ($theme) {
+            return $theme->reveal() === $arg;
+        }), 'component-1')->willReturn('Schema1/Class');
+        $componentLocator->getComponentClassFromTag(Argument::that(function ($arg) use ($theme) {
+            return $theme->reveal() === $arg;
+        }), 'component-2')->willReturn('Schema2/Class');
+
+        $config = $this->prophesize(Repository::class);
+
+        $bladeCompiler = $this->prophesize(BladeCompiler::class);
+        $bladeCompiler->component('Schema1/Class', 'component-1', 'some-other-test')->shouldBeCalled();
+        $bladeCompiler->component('Schema2/Class', 'component-2', 'some-other-test')->shouldBeCalled();
+        Blade::swap($bladeCompiler->reveal());
+
+        $themeLoader = new ThemeLoader(
+            $themeStore->reveal(),
+            $schemaStore->reveal(),
+            $componentLocator->reveal(),
+            $config->reveal()
+        );
+
+        $themeLoader->useTagPrefix('some-other-test');
+        $themeLoader->load('test-theme');
+    }
+
+}
+
+class ThemeLoaderTestDummySchemaOne extends SchemaDefinition
+{
+
+    public static $tag;
+
+    public function render()
+    {
+    }
+
+    public static function tag(): string
+    {
+        return static::$tag;
+    }
+
+    public static function defaultImplementation(): string
+    {
+        return '';
+    }
+}
+
+class ThemeLoaderTestDummySchemaTwo extends SchemaDefinition
+{
+
+    public static $tag;
+
+    public function render()
+    {
+    }
+
+    public static function tag(): string
+    {
+        return static::$tag;
+    }
+
+    public static function defaultImplementation(): string
+    {
+        return '';
+    }
 }

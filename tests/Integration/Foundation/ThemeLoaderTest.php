@@ -23,7 +23,7 @@ class ThemeLoaderTest extends LaravelTestCase
         Blade::swap($blade->reveal());
 
         $this->app->make(ThemeStore::class)->registerTheme(new ThemeLoaderTestDummyThemeDefinition());
-        $this->app->make(SchemaStore::class)->registerSchema(new ThemeLoaderTestDummyFirstComponent());
+        $this->app->make(SchemaStore::class)->registerSchema(ThemeLoaderTestDummyFirstComponent::class);
 
         config()->set('themes.tag-prefix', 'test');
 
@@ -41,7 +41,7 @@ class ThemeLoaderTest extends LaravelTestCase
         Blade::swap($blade->reveal());
 
         $this->app->make(ThemeStore::class)->registerTheme(new ThemeLoaderTestDummyThemeDefinition());
-        $this->app->make(SchemaStore::class)->registerSchema(new ThemeLoaderTestDummySecondComponent());
+        $this->app->make(SchemaStore::class)->registerSchema(ThemeLoaderTestDummySecondComponent::class);
 
         config()->set('themes.tag-prefix', 'test2');
 

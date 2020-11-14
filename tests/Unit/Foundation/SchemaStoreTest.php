@@ -9,43 +9,32 @@ use Twigger\Tests\Blade\TestCase;
 class SchemaStoreTest extends TestCase
 {
 
-
-    private function makeSchemaDefinition(string $id)
-    {
-        $schemaDefinition = $this->prophesize(SchemaDefinition::class);
-        $schemaDefinition->tag()->willReturn($id);
-        return $schemaDefinition;
-    }
-
     /** @test */
     public function it_registers_and_returns_all_schemas(){
-        $schemaDefinition1 = $this->makeSchemaDefinition('schema-definition-1');
-        $schemaDefinition2 = $this->makeSchemaDefinition('schema-definition-2');
-        $schemaDefinition3 = $this->makeSchemaDefinition('schema-definition-3');
+        SchemaStoreTestDummySchema::$tag = 'schema-definition-1';
+        SchemaStoreTestDummySchemaTwo::$tag = 'schema-definition-2';
+        SchemaStoreTestDummySchemaThree::$tag = 'schema-definition-3';
 
         $schemaStore = new SchemaStore();
-        $schemaStore->registerSchema($schemaDefinition1->reveal());
-        $schemaStore->registerSchema($schemaDefinition2->reveal());
-        $schemaStore->registerSchema($schemaDefinition3->reveal());
+        $schemaStore->registerSchema(SchemaStoreTestDummySchema::class);
+        $schemaStore->registerSchema(SchemaStoreTestDummySchemaTwo::class);
+        $schemaStore->registerSchema(SchemaStoreTestDummySchemaThree::class);
 
         $allSchemas = $schemaStore->allSchemas();
 
-        $this->assertSame([
-            'schema-definition-1' => $schemaDefinition1->reveal(),
-            'schema-definition-2' => $schemaDefinition2->reveal(),
-            'schema-definition-3' => $schemaDefinition3->reveal()
+        $this->assertEquals([
+            'schema-definition-1' => SchemaStoreTestDummySchema::class,
+            'schema-definition-2' => SchemaStoreTestDummySchemaTwo::class,
+            'schema-definition-3' => SchemaStoreTestDummySchemaThree::class
         ], $allSchemas);
-        $this->assertSame($schemaDefinition1->reveal(),  $allSchemas['schema-definition-1']);
-        $this->assertSame($schemaDefinition2->reveal(),  $allSchemas['schema-definition-2']);
-        $this->assertSame($schemaDefinition3->reveal(),  $allSchemas['schema-definition-3']);
     }
 
     /** @test */
     public function it_can_tell_if_a_schema_exists_or_not(){
-        $schemaDefinition1 = $this->makeSchemaDefinition('schema-definition-1');
+        SchemaStoreTestDummySchema::$tag = 'schema-definition-1';
 
         $schemaStore = new SchemaStore();
-        $schemaStore->registerSchema($schemaDefinition1->reveal());
+        $schemaStore->registerSchema(SchemaStoreTestDummySchema::class);
 
         $this->assertTrue(
             $schemaStore->hasSchema('schema-definition-1')
@@ -58,13 +47,13 @@ class SchemaStoreTest extends TestCase
 
     /** @test */
     public function it_can_retrieve_a_schema(){
-        $schemaDefinition1 = $this->makeSchemaDefinition('schema-definition-1');
+        SchemaStoreTestDummySchema::$tag = 'schema-definition-1';
 
         $schemaStore = new SchemaStore();
-        $schemaStore->registerSchema($schemaDefinition1->reveal());
+        $schemaStore->registerSchema(SchemaStoreTestDummySchema::class);
 
         $this->assertSame(
-            $schemaDefinition1->reveal(), $schemaStore->getSchema('schema-definition-1')
+            SchemaStoreTestDummySchema::class, $schemaStore->getSchema('schema-definition-1')
         );
     }
 
@@ -75,5 +64,65 @@ class SchemaStoreTest extends TestCase
 
         $schemaStore = new SchemaStore();
         $schemaStore->getSchema('schema-one-test');
+    }
+}
+
+class SchemaStoreTestDummySchema extends SchemaDefinition
+{
+
+    public static $tag;
+
+    public function render()
+    {
+    }
+
+    public static function tag(): string
+    {
+        return static::$tag;
+    }
+
+    public static function defaultImplementation(): string
+    {
+        return '';
+    }
+}
+
+class SchemaStoreTestDummySchemaTwo extends SchemaDefinition
+{
+
+    public static $tag;
+
+    public function render()
+    {
+    }
+
+    public static function tag(): string
+    {
+        return static::$tag;
+    }
+
+    public static function defaultImplementation(): string
+    {
+        return '';
+    }
+}
+
+class SchemaStoreTestDummySchemaThree extends SchemaDefinition
+{
+
+    public static $tag;
+
+    public function render()
+    {
+    }
+
+    public static function tag(): string
+    {
+        return static::$tag;
+    }
+
+    public static function defaultImplementation(): string
+    {
+        return '';
     }
 }

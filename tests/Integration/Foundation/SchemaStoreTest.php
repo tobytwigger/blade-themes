@@ -11,18 +11,56 @@ class SchemaStoreTest extends LaravelTestCase
 
     /** @test */
     public function the_store_is_a_singleton(){
-        $schema1 = $this->prophesize(SchemaDefinition::class);
-        $schema1->tag()->willReturn('schema1');
-        $schema2 = $this->prophesize(SchemaDefinition::class);
-        $schema2->tag()->willReturn('schema2');
+        SchemaStoreTestDummySchema::$tag = 'schema1';
+        SchemaStoreTestDummySchemaTwo::$tag = 'schema2';
 
-        app()->make(SchemaStore::class)->registerSchema($schema1->reveal());
-        app()->make(SchemaStore::class)->registerSchema($schema2->reveal());
+        app()->make(SchemaStore::class)->registerSchema(SchemaStoreTestDummySchema::class);
+        app()->make(SchemaStore::class)->registerSchema(SchemaStoreTestDummySchemaTwo::class);
 
         $this->assertSame([
-            'schema1' => $schema1->reveal(),
-            'schema2' => $schema2->reveal(),
+            'schema1' => SchemaStoreTestDummySchema::class,
+            'schema2' => SchemaStoreTestDummySchemaTwo::class,
         ], app()->make(SchemaStore::class)->allSchemas());
     }
 
+}
+
+class SchemaStoreTestDummySchema extends SchemaDefinition
+{
+
+    public static $tag;
+
+    public function render()
+    {
+    }
+
+    public static function tag(): string
+    {
+        return static::$tag;
+    }
+
+    public static function defaultImplementation(): string
+    {
+        return '';
+    }
+}
+
+class SchemaStoreTestDummySchemaTwo extends SchemaDefinition
+{
+
+    public static $tag;
+
+    public function render()
+    {
+    }
+
+    public static function tag(): string
+    {
+        return static::$tag;
+    }
+
+    public static function defaultImplementation(): string
+    {
+        return '';
+    }
 }
