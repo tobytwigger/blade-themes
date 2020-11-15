@@ -34,24 +34,42 @@ class ThemeLoader
      * @var string
      */
     private $tagPrefix = null;
+    /**
+     * @var ScriptStore
+     */
+    private $scriptStore;
 
-    public function __construct(ThemeStore $themeStore, SchemaStore $schemaStore, ComponentLocator $componentLocator, Config $config)
+    public function __construct(ThemeStore $themeStore, SchemaStore $schemaStore, ComponentLocator $componentLocator, ScriptStore $scriptStore, Config $config)
     {
         $this->themeStore = $themeStore;
         $this->componentLocator = $componentLocator;
         $this->schemaStore = $schemaStore;
         $this->config = $config;
+        $this->scriptStore = $scriptStore;
     }
 
     public function load(string $theme)
     {
         $themeDefinition = $this->themeStore->getTheme($theme);
+        $this->loadScripts($themeDefinition);
+        $this->loadComponents($themeDefinition);
+    }
+
+    private function loadComponents(ThemeDefinition $themeDefinition)
+    {
         foreach($this->schemaStore->allSchemas() as $schema) {
             Blade::component(
                 $this->componentLocator->getComponentClassFromTag($themeDefinition, $schema::tag()),
                 $schema::tag(),
                 $this->getTagPrefix()
             );
+        }
+    }
+
+    private function loadScripts(ThemeDefinition $themeDefinition)
+    {
+        foreach($themeDefinition->assets() as $asset) {
+            $this->scriptStore->registerScript($asset);
         }
     }
 

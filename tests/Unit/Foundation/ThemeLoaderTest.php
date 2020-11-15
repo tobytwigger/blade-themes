@@ -9,6 +9,7 @@ use Prophecy\Argument;
 use Twigger\Blade\Foundation\SchemaDefinition;
 use Twigger\Blade\Foundation\ComponentLocator;
 use Twigger\Blade\Foundation\SchemaStore;
+use Twigger\Blade\Foundation\ScriptStore;
 use Twigger\Blade\Foundation\ThemeDefinition;
 use Twigger\Blade\Foundation\ThemeLoader;
 use Twigger\Blade\Foundation\ThemeStore;
@@ -21,6 +22,7 @@ class ThemeLoaderTest extends TestCase
     public function it_adds_blade_components_for_each_of_the_schemas()
     {
         $theme = $this->prophesize(ThemeDefinition::class);
+        $theme->assets()->willReturn([]);
 
         $themeStore = $this->prophesize(ThemeStore::class);
         $themeStore->getTheme('test-theme')->willReturn($theme->reveal());
@@ -45,6 +47,8 @@ class ThemeLoaderTest extends TestCase
         $config = $this->prophesize(Repository::class);
         $config->get('themes.tag-prefix', Argument::type('string'))->willReturn('test');
 
+        $scriptStore = $this->prophesize(ScriptStore::class);
+
         $bladeCompiler = $this->prophesize(BladeCompiler::class);
         $bladeCompiler->component('Schema1/Class', 'component-1', 'test')->shouldBeCalled();
         $bladeCompiler->component('Schema2/Class', 'component-2', 'test')->shouldBeCalled();
@@ -54,6 +58,7 @@ class ThemeLoaderTest extends TestCase
             $themeStore->reveal(),
             $schemaStore->reveal(),
             $componentLocator->reveal(),
+            $scriptStore->reveal(),
             $config->reveal()
         );
         $themeLoader->load('test-theme');
@@ -63,6 +68,7 @@ class ThemeLoaderTest extends TestCase
     public function it_uses_the_given_tag_prefix()
     {
         $theme = $this->prophesize(ThemeDefinition::class);
+        $theme->assets()->willReturn([]);
 
         $themeStore = $this->prophesize(ThemeStore::class);
         $themeStore->getTheme('test-theme')->willReturn($theme->reveal());
@@ -86,6 +92,8 @@ class ThemeLoaderTest extends TestCase
 
         $config = $this->prophesize(Repository::class);
 
+        $scriptStore = $this->prophesize(ScriptStore::class);
+
         $bladeCompiler = $this->prophesize(BladeCompiler::class);
         $bladeCompiler->component('Schema1/Class', 'component-1', 'some-other-test')->shouldBeCalled();
         $bladeCompiler->component('Schema2/Class', 'component-2', 'some-other-test')->shouldBeCalled();
@@ -95,10 +103,42 @@ class ThemeLoaderTest extends TestCase
             $themeStore->reveal(),
             $schemaStore->reveal(),
             $componentLocator->reveal(),
+            $scriptStore->reveal(),
             $config->reveal()
         );
 
         $themeLoader->useTagPrefix('some-other-test');
+        $themeLoader->load('test-theme');
+    }
+
+    /** @test */
+    public function it_loads_scripts()
+    {
+        $theme = $this->prophesize(ThemeDefinition::class);
+        $theme->assets()->willReturn(['One', 'Two']);
+
+        $themeStore = $this->prophesize(ThemeStore::class);
+        $themeStore->getTheme('test-theme')->willReturn($theme->reveal());
+
+        $schemaStore = $this->prophesize(SchemaStore::class);
+        $schemaStore->allSchemas()->willReturn([]);
+
+        $componentLocator = $this->prophesize(ComponentLocator::class);
+
+        $config = $this->prophesize(Repository::class);
+
+        $scriptStore = $this->prophesize(ScriptStore::class);
+        $scriptStore->registerScript('One')->shouldBeCalled();
+        $scriptStore->registerScript('Two')->shouldBeCalled();
+
+        $themeLoader = new ThemeLoader(
+            $themeStore->reveal(),
+            $schemaStore->reveal(),
+            $componentLocator->reveal(),
+            $scriptStore->reveal(),
+            $config->reveal()
+        );
+
         $themeLoader->load('test-theme');
     }
 

@@ -9,7 +9,9 @@ class ScriptStore
 
     public function registerScript(string $script)
     {
-        $this->scripts[] = $script;
+        if(!in_array($script, $this->scripts)) {
+            $this->scripts[] = $script;
+        }
     }
 
     public function allScripts(): array
