@@ -2,7 +2,6 @@
 
 namespace Twigger\Blade\Themes\Bootstrap\Components;
 
-
 use Twigger\Blade\Schema\Button as ButtonSchema;
 
 class Button extends ButtonSchema

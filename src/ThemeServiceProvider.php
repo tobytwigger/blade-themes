@@ -2,16 +2,21 @@
 
 namespace Twigger\Blade;
 
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
+use Doctrine\Common\Annotations\Reader;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\ServiceProvider;
+use Twigger\Blade\Docs\DocName;
 use Twigger\Blade\Foundation\ComponentLocator;
 use Twigger\Blade\Foundation\SchemaStore;
 use Twigger\Blade\Foundation\ScriptStore;
 use Twigger\Blade\Foundation\ThemeDefinition;
 use Twigger\Blade\Foundation\ThemeLoader;
 use Twigger\Blade\Foundation\ThemeStore;
+use Twigger\Blade\Schema\Button;
 
 class ThemeServiceProvider extends ServiceProvider
 {
@@ -25,6 +30,7 @@ class ThemeServiceProvider extends ServiceProvider
         $this->app->singleton(ThemeStore::class);
         $this->app->singleton(SchemaStore::class);
         $this->app->singleton(ScriptStore::class);
+        $this->app->bind(Reader::class, AnnotationReader::class);
         $this->registerConfig();
     }
 
@@ -45,6 +51,7 @@ class ThemeServiceProvider extends ServiceProvider
         $this->registerThemes();
         $this->registerSchemas();
         $this->loadTheme();
+        $this->loadAnnotations();
 
         // TODO can call component ->ifTheme('material', function($component) {
         // sth here on component and return it IF the theme is material. Allows us to use custom features from frameworks.
@@ -88,6 +95,13 @@ class ThemeServiceProvider extends ServiceProvider
             $class = $componentLocator->getImplementationClassFromSchema($schema);
             $schemaStore->registerSchema($class);
         }
+
+    }
+
+    private function loadAnnotations()
+    {
+        // Deprecated and will be removed in 2.0 but currently needed
+        AnnotationRegistry::registerLoader('class_exists');
 
     }
 

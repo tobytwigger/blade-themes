@@ -2,9 +2,15 @@
 
 namespace Twigger\Blade\Schema;
 
+use Twigger\Blade\Docs\DocDescription;
+use Twigger\Blade\Docs\DocName;
 use Twigger\Blade\Foundation\SchemaDefinition;
 use Twigger\Blade\Themes\Material\Components\Select as MaterialSelect;
 
+/**
+ * @DocName(name="Select")
+ * @DocDescription(description="A dropdown list")
+ */
 abstract class Select extends SchemaDefinition
 {
 
@@ -19,7 +25,7 @@ abstract class Select extends SchemaDefinition
 
     public function __construct($items)
     {
-        $this->items = $items;
+        $this->items = (is_string($items) ? json_decode($items, true) : $items);
     }
 
     public static function tag(): string

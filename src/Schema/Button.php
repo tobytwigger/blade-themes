@@ -2,19 +2,21 @@
 
 namespace Twigger\Blade\Schema;
 
+use Twigger\Blade\Docs\DocDescription;
+use Twigger\Blade\Docs\DocName;
 use Twigger\Blade\Foundation\SchemaDefinition;
 use Twigger\Blade\Themes\Material\Components\Button as MaterialButton;
 
 /**
- * Button
- *
- * A button can be used as a form of UI with the user. xyzabc
- * 
+ * @DocName(name="Button")
+ * @DocDescription(description="A simple button")
  */
 abstract class Button extends SchemaDefinition
 {
 
     /**
+     * @DocName(name="Type")
+     * @DocDescription(description="The type of button to create.")
      * @var string
      */
     public $type;
