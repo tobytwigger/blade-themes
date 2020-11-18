@@ -34,6 +34,24 @@ abstract class Select extends SchemaDefinition
      */
     public $items;
 
+    /**
+     * @var string
+     * @DocName(name="Component ID")
+     * @DocDescription(description="The ID to be used on the base component")
+     * @DocAllowedValue(value="some-id", tips={"This can be anything you want"}, description="The ID of the select element will be 'some-id'")
+     * @DocAllowedValue(value="null", tips={"You can also just leave the id attribute off the component"}, description="The select element will not have an ID attribute if id is blank")
+     */
+    public $id;
+
+    /**
+     * @var string
+     * @DocName(name="Component name")
+     * @DocDescription(description="The name to be used on the base component")
+     * @DocAllowedValue(value="some-name", tips={"This can be anything you want"}, description="The name of the select element will be 'some-name'")
+     * @DocAllowedValue(value="null", tips={"You can also just leave the name attribute off the component"}, description="The select element will not have an name attribute if name is blank")
+     */
+    public $name;
+
     public function __construct($items)
     {
         $this->items = (is_string($items) ? json_decode($items, true) : $items);

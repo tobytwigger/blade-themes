@@ -1,5 +1,5 @@
 <div class="mdc-select mdc-select--filled demo-width-class">
-    <input type="hidden" name="theme">
+    <input type="hidden" name="{{$name}}" id="{{$id}}">
     <div class="mdc-select__anchor">
         <span class="mdc-select__ripple"></span>
         <span class="mdc-floating-label mdc-floating-label--float-above">Pick a Theme</span>
@@ -45,9 +45,5 @@
 @push('theme-scripts')
     <script type="text/javascript">
         const select = new mdc.select.MDCSelect(document.querySelector('.mdc-select'));
-
-        select.listen('MDCSelect:change', () => {
-            console.log(`Selected option at index ${select.selectedIndex} with value "${select.value}"`);
-        });
     </script>
 @endpush
