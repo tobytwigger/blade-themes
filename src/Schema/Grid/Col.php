@@ -12,10 +12,26 @@ abstract class Col extends SchemaDefinition
 {
 
     public $cols;
+    private $sm;
+    private $md;
+    private $lg;
+    private $xl;
 
-    public function __construct($cols)
+    /**
+     * Col constructor.
+     * @param $cols
+     * @param null $sm
+     * @param null $md
+     * @param null $lg
+     * @param null $xl
+     */
+    public function __construct($cols, $sm = null, $md = null, $lg = null, $xl = null)
     {
         $this->cols = $cols;
+        $this->sm = $sm;
+        $this->md = $md;
+        $this->lg = $lg;
+        $this->xl = $xl;
     }
 
     public static function tag(): string
@@ -33,14 +49,14 @@ abstract class Col extends SchemaDefinition
         $classes = [];
         if($this->cols) {
             $classes[] = 'col-' . $this->cols;
-        } if($this->has('sm')) {
-            $classes[] = 'col-sm-' . $this->get('sm');
-        } if($this->has('md')) {
-            $classes[] = 'col-md-' . $this->get('md');
-        } if($this->has('lg')) {
-            $classes[] = 'col-lg-' . $this->get('lg');
-        } if($this->has('xl')) {
-            $classes[] = 'col-xl-' . $this->get('xl');
+        } if($this->sm) {
+            $classes[] = 'col-sm-' . $this->sm;
+        } if($this->md) {
+            $classes[] = 'col-md-' . $this->md;
+        } if($this->lg) {
+            $classes[] = 'col-lg-' . $this->lg;
+        } if($this->xl) {
+            $classes[] = 'col-xl-' . $this->xl;
         }
         return implode(' ', $classes);
     }
