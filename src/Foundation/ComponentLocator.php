@@ -62,7 +62,7 @@ class ComponentLocator
             }
         }
         throw new \Exception(
-            sprintf('Class %s could not be instantiated', $schemaClass)
+            sprintf('A schema class could not be found for schema %s', $schemaClass)
         );
     }
 }
