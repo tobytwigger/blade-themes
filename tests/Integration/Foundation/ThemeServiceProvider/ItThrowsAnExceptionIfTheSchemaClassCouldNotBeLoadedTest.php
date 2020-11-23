@@ -53,7 +53,7 @@ class ItThrowsAnExceptionIfTheSchemaClassCouldNotBeLoadedTest extends LaravelTes
     public function test()
     {
         $this->assertEquals(
-            'Class SomeClassThatCantBeLoaded could not be instantiated',
+            'A schema class could not be found for schema SomeClassThatCantBeLoaded',
             $this->exceptionMessage
         );
     }

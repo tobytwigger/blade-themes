@@ -10,7 +10,12 @@ abstract class ThemeDefinition
      */
     abstract public function name(): string;
 
-    public function assets(): array
+    public function styles(): array
+    {
+        return [];
+    }
+
+    public function scripts(): array
     {
         return [];
     }

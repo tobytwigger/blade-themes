@@ -3,7 +3,7 @@
 namespace Twigger\Blade\Themes\Material;
 
 use Illuminate\Support\ServiceProvider;
-use Twigger\Blade\Foundation\ScriptStore;
+use Twigger\Blade\Foundation\AssetStore;
 use Twigger\Blade\Theme;
 use Twigger\Blade\ThemeServiceProvider;
 

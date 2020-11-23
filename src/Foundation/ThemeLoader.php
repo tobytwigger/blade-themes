@@ -35,11 +35,11 @@ class ThemeLoader
      */
     private $tagPrefix = null;
     /**
-     * @var ScriptStore
+     * @var AssetStore
      */
     private $scriptStore;
 
-    public function __construct(ThemeStore $themeStore, SchemaStore $schemaStore, ComponentLocator $componentLocator, ScriptStore $scriptStore, Config $config)
+    public function __construct(ThemeStore $themeStore, SchemaStore $schemaStore, ComponentLocator $componentLocator, AssetStore $scriptStore, Config $config)
     {
         $this->themeStore = $themeStore;
         $this->componentLocator = $componentLocator;
@@ -52,6 +52,7 @@ class ThemeLoader
     {
         $themeDefinition = $this->themeStore->getTheme($theme);
         $this->loadScripts($themeDefinition);
+        $this->loadStyles($themeDefinition);
         $this->loadComponents($themeDefinition);
     }
 
@@ -68,8 +69,15 @@ class ThemeLoader
 
     private function loadScripts(ThemeDefinition $themeDefinition)
     {
-        foreach($themeDefinition->assets() as $asset) {
-            $this->scriptStore->registerScript($asset);
+        foreach($themeDefinition->scripts() as $script) {
+            $this->scriptStore->registerScript($script);
+        }
+    }
+
+    private function loadStyles(ThemeDefinition $themeDefinition)
+    {
+        foreach($themeDefinition->styles() as $style) {
+            $this->scriptStore->registerStyle($style);
         }
     }
 

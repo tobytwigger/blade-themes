@@ -12,7 +12,7 @@ use Illuminate\Support\ServiceProvider;
 use Twigger\Blade\Docs\DocName;
 use Twigger\Blade\Foundation\ComponentLocator;
 use Twigger\Blade\Foundation\SchemaStore;
-use Twigger\Blade\Foundation\ScriptStore;
+use Twigger\Blade\Foundation\AssetStore;
 use Twigger\Blade\Foundation\ThemeDefinition;
 use Twigger\Blade\Foundation\ThemeLoader;
 use Twigger\Blade\Foundation\ThemeStore;
@@ -29,7 +29,7 @@ class ThemeServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ThemeStore::class);
         $this->app->singleton(SchemaStore::class);
-        $this->app->singleton(ScriptStore::class);
+        $this->app->singleton(AssetStore::class);
         $this->app->bind(Reader::class, AnnotationReader::class);
         $this->registerConfig();
     }

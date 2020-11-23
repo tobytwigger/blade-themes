@@ -24,11 +24,17 @@ class MaterialTheme extends ThemeDefinition
         return Select::class;
     }
 
-    public function assets(): array
+    public function styles(): array
     {
         return [
             '<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">',
-            '<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">',
+            '<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">'
+        ];
+    }
+
+    public function scripts(): array
+    {
+        return [
             '<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>'
         ];
     }

@@ -8,24 +8,21 @@ use Illuminate\View\Component;
 abstract class SchemaDefinition extends Component
 {
 
-    public function __construct()
+    /**
+     * Get a given attribute from the attribute array.
+     *
+     * @param  string  $key
+     * @param  mixed  $default
+     * @return mixed
+     */
+    public function get($key, $default = null)
     {
+        return $this->attributes->get($key, $default);
     }
 
-    public function data()
+    public function has($key)
     {
-        $data = parent::data();
-        $this->mapAttributes();
-        return $data;
-    }
-
-    private function mapAttributes()
-    {
-        foreach($this->attributes->getAttributes() as $key => $attribute) {
-            if(property_exists($this, $key) && empty($this->{$key})) {
-                $this->{$key} = $attribute;
-            }
-        }
+        return $this->attributes->offsetExists($key);
     }
 
     abstract public static function tag(): string;

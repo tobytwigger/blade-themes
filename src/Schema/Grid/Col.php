@@ -4,14 +4,19 @@ namespace Twigger\Blade\Schema\Grid;
 
 use Twigger\Blade\Foundation\SchemaDefinition;
 
+/**
+ * Class Col
+ * @package Twigger\Blade\Schema\Grid
+ */
 abstract class Col extends SchemaDefinition
 {
 
     public $cols;
-    public $sm;
-    public $md;
-    public $lg;
-    public $xl;
+
+    public function __construct($cols)
+    {
+        $this->cols = $cols;
+    }
 
     public static function tag(): string
     {
@@ -25,18 +30,17 @@ abstract class Col extends SchemaDefinition
 
     public function colClass()
     {
-        dd($this);
         $classes = [];
         if($this->cols) {
             $classes[] = 'col-' . $this->cols;
-        } if($this->sm) {
-            $classes[] = 'col-sm-' . $this->sm;
-        } if($this->md) {
-            $classes[] = 'col-md-' . $this->md;
-        } if($this->lg) {
-            $classes[] = 'col-lg-' . $this->lg;
-        } if($this->xl) {
-            $classes[] = 'col-xl-' . $this->xl;
+        } if($this->has('sm')) {
+            $classes[] = 'col-sm-' . $this->get('sm');
+        } if($this->has('md')) {
+            $classes[] = 'col-md-' . $this->get('md');
+        } if($this->has('lg')) {
+            $classes[] = 'col-lg-' . $this->get('lg');
+        } if($this->has('xl')) {
+            $classes[] = 'col-xl-' . $this->get('xl');
         }
         return implode(' ', $classes);
     }

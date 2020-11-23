@@ -85,7 +85,7 @@ class ComponentLocatorTest extends TestCase
     /** @test */
     public function getImplementationClassFromSchema_throws_an_exception_if_the_class_does_not_exist(){
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Class ThisIsNotAClass could not be instantiated');
+        $this->expectExceptionMessage('A schema class could not be found for schema ThisIsNotAClass');
 
         $componentLocator = new ComponentLocator($this->prophesize(SchemaStore::class)->reveal());
         $componentLocator->getImplementationClassFromSchema('ThisIsNotAClass');
@@ -95,7 +95,7 @@ class ComponentLocatorTest extends TestCase
     /** @test */
     public function getImplementationClassFromSchema_throws_an_exception_if_the_class_is_not_a_schema(){
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Class Twigger\Tests\Blade\Unit\Foundation\SomeClass could not be instantiated');
+        $this->expectExceptionMessage('A schema class could not be found for schema Twigger\Tests\Blade\Unit\Foundation\SomeClass');
 
         $componentLocator = new ComponentLocator($this->prophesize(SchemaStore::class)->reveal());
         $componentLocator->getImplementationClassFromSchema(SomeClass::class);

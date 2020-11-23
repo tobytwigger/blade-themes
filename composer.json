@@ -60,6 +60,7 @@
             "providers": [
                 "Twigger\\Blade\\Themes\\Bootstrap\\BootstrapThemeServiceProvider",
                 "Twigger\\Blade\\Themes\\Material\\MaterialThemeServiceProvider",
+                "Twigger\\Blade\\Themes\\Materialize\\MaterializeThemeServiceProvider",
                 "Twigger\\Blade\\ThemeServiceProvider"
             ],
             "aliases": {
