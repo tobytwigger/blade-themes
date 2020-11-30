@@ -8,6 +8,7 @@ use Doctrine\Common\Annotations\Reader;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Twigger\Blade\Docs\DocName;
 use Twigger\Blade\Foundation\ComponentLocator;
@@ -67,6 +68,7 @@ class ThemeServiceProvider extends ServiceProvider
         }
 
         if($this->app->make(Repository::class)->pull(static::class . '.cachedTheme') !== $themeToLoad) {
+            // TODO Set this!
             Artisan::call('view:clear');
         }
 

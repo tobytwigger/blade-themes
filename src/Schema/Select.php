@@ -8,7 +8,7 @@ use Twigger\Blade\Docs\DocExample;
 use Twigger\Blade\Docs\DocName;
 use Twigger\Blade\Docs\DocTip;
 use Twigger\Blade\Foundation\SchemaDefinition;
-use Twigger\Blade\Themes\Material\Components\Select as MaterialSelect;
+use Twigger\Blade\Themes\Bootstrap\Components\Select as BootstrapSelect;
 
 /**
  * @DocName(name="Select")
@@ -64,7 +64,7 @@ abstract class Select extends SchemaDefinition
 
     public static function defaultImplementation(): string
     {
-        return MaterialSelect::class;
+        return BootstrapSelect::class;
     }
 
 }

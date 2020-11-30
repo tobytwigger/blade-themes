@@ -58,10 +58,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Twigger\\Blade\\Themes\\Bootstrap\\BootstrapThemeServiceProvider",
-                "Twigger\\Blade\\Themes\\Material\\MaterialThemeServiceProvider",
-                "Twigger\\Blade\\Themes\\Materialize\\MaterializeThemeServiceProvider",
-                "Twigger\\Blade\\ThemeServiceProvider"
+                "Twigger\\Blade\\ThemeServiceProvider",
+                "Twigger\\Blade\\Themes\\Bootstrap\\BootstrapThemeServiceProvider"
             ],
             "aliases": {
                 "Theme": "Twigger\\Blade\\Theme\\Theme"

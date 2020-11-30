@@ -20,17 +20,21 @@ use Twigger\Blade\Schema\Button as ButtonSchema;
 class Button extends ButtonSchema
 {
 
-    /**
-     * @DocName(name="Tqwype")
-     * @DocDescription(description="The type ofss button to create.")
-     * @DocAllowedValue(value="success", description="Successssful Button", tips={"Use in xyz1", "Use in abc1"})
-     * @DocAllowedValue(value="info", description="Info Butaaaton", tips={"Use in xyz3", "Use in abc3"})
-     * @var string
-     */
-    public $type;
-
     public function render()
     {
         return view('bootstrap-theme::button');
+    }
+
+    public function classes()
+    {
+        $classes = ['btn'];
+        $classes[] = 'btn-' . ($this->backgroundFill === false ? 'outline-' : '') . $this->variant;
+        if($this->size !== null) {
+            $classes[] = 'btn-' . $this->size;
+        }
+        if($this->block === true) {
+            $classes[] = 'btn-block';
+        }
+        return implode(' ', $classes);
     }
 }

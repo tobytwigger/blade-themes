@@ -1,3 +1,3 @@
-<button {{ $attributes }} class="btn btn-info">
+<button {{ $attributes->merge(['class' => $classes]) }} {{($disabled === true ? 'disabled' : '')}}>
     {{$slot}}
 </button>

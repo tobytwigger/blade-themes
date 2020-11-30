@@ -1,14 +1,12 @@
 <?php
 
 return [
-    'theme' => 'material',
+    'theme' => 'bootstrap',
     'tag-prefix' => 'theme',
     'components' => [
         \Twigger\Blade\Schema\Button::class,
+        \Twigger\Blade\Schema\Spinner::class,
         \Twigger\Blade\Schema\Select::class,
-
-        \Twigger\Blade\Schema\Grid\Container::class,
-        \Twigger\Blade\Schema\Grid\Row::class,
-        \Twigger\Blade\Schema\Grid\Col::class
+        \Twigger\Blade\Schema\Alert::class
     ]
 ];
