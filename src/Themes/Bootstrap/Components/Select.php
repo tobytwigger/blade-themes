@@ -11,4 +11,15 @@ class Select extends SelectSchema
     {
         return view('bootstrap-theme::select');
     }
+
+    public function validClasses(): string
+    {
+        if($this->validated === true) {
+            if($this->isValid() === true) {
+                return 'is-valid';
+            }
+            return 'is-invalid';
+        }
+        return '';
+    }
 }

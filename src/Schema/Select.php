@@ -7,7 +7,6 @@ use Twigger\Blade\Docs\DocDescription;
 use Twigger\Blade\Docs\DocExample;
 use Twigger\Blade\Docs\DocName;
 use Twigger\Blade\Docs\DocTip;
-use Twigger\Blade\Foundation\SchemaDefinition;
 use Twigger\Blade\Themes\Bootstrap\Components\Select as BootstrapSelect;
 
 /**
@@ -19,7 +18,7 @@ use Twigger\Blade\Themes\Bootstrap\Components\Select as BootstrapSelect;
  *     attributeValues={"items": {{"label": "First Option", "value": "1"}, {"label": "Second Option", "value": "2"}, {"label": "Third Option", "value": "3"}}}
  * )
  */
-abstract class Select extends SchemaDefinition
+abstract class Select extends FormInput
 {
 
     /**
@@ -34,27 +33,10 @@ abstract class Select extends SchemaDefinition
      */
     public $items;
 
-    /**
-     * @var string
-     * @DocName(name="Component ID")
-     * @DocDescription(description="The ID to be used on the base component")
-     * @DocAllowedValue(value="some-id", tips={"This can be anything you want"}, description="The ID of the select element will be 'some-id'")
-     * @DocAllowedValue(value="null", tips={"You can also just leave the id attribute off the component"}, description="The select element will not have an ID attribute if id is blank")
-     */
-    public $id;
-
-    /**
-     * @var string
-     * @DocName(name="Component name")
-     * @DocDescription(description="The name to be used on the base component")
-     * @DocAllowedValue(value="some-name", tips={"This can be anything you want"}, description="The name of the select element will be 'some-name'")
-     * @DocAllowedValue(value="null", tips={"You can also just leave the name attribute off the component"}, description="The select element will not have an name attribute if name is blank")
-     */
-    public $name;
-
-    public function __construct($items)
+    public function __construct(array $items, string $id, string $name, string $label = null, string $srLabel = null, string $help = null, array $errors = [], bool $validated = false)
     {
         $this->items = (is_string($items) ? json_decode($items, true) : $items);
+        parent::__construct($id, $name, $label, $srLabel, $help, $errors, $validated);
     }
 
     public static function tag(): string

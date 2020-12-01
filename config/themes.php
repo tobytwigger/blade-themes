@@ -9,7 +9,7 @@ return [
         \Twigger\Blade\Schema\Alert::class,
         \Twigger\Blade\Schema\Toggle::class,
         \Twigger\Blade\Schema\Link::class,
-
         \Twigger\Blade\Schema\Select::class,
+        \Twigger\Blade\Schema\ErrorSummary::class,
     ]
 ];
