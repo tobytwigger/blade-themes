@@ -17,7 +17,7 @@ class BootstrapThemeServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/views', 'bootstrap-theme');
 
-        $this->publishes([__DIR__ . '/styles/customisation.css'], public_path('vendor/themes/bootstrap'));
+        $this->publishes([__DIR__ . '/styles/customisation.css' => public_path('vendor/themes/bootstrap/customisation.css')]);
     }
 
 }
