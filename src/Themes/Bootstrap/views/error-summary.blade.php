@@ -4,11 +4,11 @@
         @foreach($errorsAsArray() as $id => $errorArray)
             <li>
                 {{\Illuminate\Support\Str::title($id)}}
-                @foreach($errorArray as $error)
-                    <ul>
-                        {{$error}}
-                    </ul>
-                @endforeach
+                <ul>
+                    @foreach($errorArray as $error)
+                        <li>{{$error}}</li>
+                    @endforeach
+                </ul>
             </li>
         @endforeach
     </ul>

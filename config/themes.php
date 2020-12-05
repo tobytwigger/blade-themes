@@ -11,5 +11,7 @@ return [
         \Twigger\Blade\Schema\Link::class,
         \Twigger\Blade\Schema\Select::class,
         \Twigger\Blade\Schema\ErrorSummary::class,
+        \Twigger\Blade\Schema\Checkbox::class,
+        \Twigger\Blade\Schema\Radio::class
     ]
 ];

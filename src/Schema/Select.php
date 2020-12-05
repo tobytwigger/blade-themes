@@ -33,10 +33,20 @@ abstract class Select extends FormInput
      */
     public $items;
 
-    public function __construct(array $items, string $id, string $name, string $label = null, string $srLabel = null, string $help = null, array $errors = [], bool $validated = false)
+    public function __construct(array $items,
+                                string $id,
+                                string $name,
+                                string $label = null,
+                                string $srLabel = null,
+                                string $help = null,
+                                array $errors = [],
+                                bool $validated = false,
+                                $value = null,
+                                bool $required = false,
+                                bool $disabled = false)
     {
         $this->items = (is_string($items) ? json_decode($items, true) : $items);
-        parent::__construct($id, $name, $label, $srLabel, $help, $errors, $validated);
+        parent::__construct($id, $name, $label, $srLabel, $help, $errors, $validated, $value, $required, $disabled);
     }
 
     public static function tag(): string

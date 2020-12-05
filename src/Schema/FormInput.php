@@ -52,7 +52,34 @@ abstract class FormInput extends SchemaDefinition
      */
     public $validated;
 
-    public function __construct(string $id, string $name, string $label = null, string $srLabel = null, string $help = null, array $errors = [], bool $validated = false)
+    /**
+     * @DocDescription(description="The default value of the input.")
+     * @var mixed
+     */
+    public $value;
+
+    /**
+     * @DocDescription(description="Marks the element as disabled")
+     * @var bool
+     */
+    public $required;
+
+    /**
+     * @DocDescription(description="Marks the element as disabled")
+     * @var bool
+     */
+    public $disabled;
+
+    public function __construct(string $id,
+                                string $name,
+                                string $label = null,
+                                string $srLabel = null,
+                                string $help = null,
+                                array $errors = [],
+                                bool $validated = false,
+                                $value = null,
+                                bool $required = false,
+                                bool $disabled = false)
     {
         $this->label = $label;
         $this->help = $help;
@@ -61,6 +88,9 @@ abstract class FormInput extends SchemaDefinition
         $this->name = $name;
         $this->srLabel = $srLabel;
         $this->validated = $validated;
+        $this->value = $value;
+        $this->required = $required;
+        $this->disabled = $disabled;
     }
 
     public function isValid()
