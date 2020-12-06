@@ -93,7 +93,7 @@ abstract class FormInput extends SchemaDefinition
         $this->disabled = $disabled;
     }
 
-    public function isValid()
+    public function isValid(): bool
     {
         return count($this->errors) === 0;
     }

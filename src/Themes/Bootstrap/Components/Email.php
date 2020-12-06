@@ -2,10 +2,9 @@
 
 namespace Twigger\Blade\Themes\Bootstrap\Components;
 
-use Twigger\Blade\Schema\Select as SelectSchema;
 use Twigger\Blade\Themes\Bootstrap\Utils\GeneratesValidationClasses;
 
-class Select extends SelectSchema
+class Email extends \Twigger\Blade\Schema\Email
 {
     use GeneratesValidationClasses;
 
@@ -16,7 +15,6 @@ class Select extends SelectSchema
 
     public function render()
     {
-        return view('bootstrap-theme::select');
+        return view('bootstrap-theme::email');
     }
-
 }

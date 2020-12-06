@@ -5,9 +5,16 @@ namespace Twigger\Blade\Themes\Bootstrap\Components;
 
 
 use Twigger\Blade\Docs\DocDescription;
+use Twigger\Blade\Themes\Bootstrap\Utils\GeneratesValidationClasses;
 
 class Checkbox extends \Twigger\Blade\Schema\Checkbox
 {
+    use GeneratesValidationClasses;
+
+    public function hasBeenValidated(): bool
+    {
+        return $this->validated;
+    }
 
     /**
      * @DocDescription(description="Whether checkboxes should appear next to one another or below one another")
@@ -20,14 +27,4 @@ class Checkbox extends \Twigger\Blade\Schema\Checkbox
         return view('bootstrap-theme::checkbox');
     }
 
-    public function validClasses(): string
-    {
-        if($this->validated === true) {
-            if($this->isValid() === true) {
-                return 'is-valid';
-            }
-            return 'is-invalid';
-        }
-        return '';
-    }
 }

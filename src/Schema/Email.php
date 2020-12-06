@@ -2,16 +2,16 @@
 
 namespace Twigger\Blade\Schema;
 
-abstract class Password extends FormInput
+abstract class Email extends FormInput
 {
 
     public static function tag(): string
     {
-        return 'password';
+        return 'email';
     }
 
     public static function defaultImplementation(): string
     {
-        return \Twigger\Blade\Themes\Bootstrap\Components\Password::class;
+        return \Twigger\Blade\Themes\Bootstrap\Components\Email::class;
     }
 }

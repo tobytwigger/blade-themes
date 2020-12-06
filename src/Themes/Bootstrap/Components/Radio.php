@@ -5,9 +5,17 @@ namespace Twigger\Blade\Themes\Bootstrap\Components;
 
 
 use Twigger\Blade\Docs\DocDescription;
+use Twigger\Blade\Themes\Bootstrap\Utils\GeneratesValidationClasses;
 
 class Radio extends \Twigger\Blade\Schema\Radio
 {
+
+    use GeneratesValidationClasses;
+
+    public function hasBeenValidated(): bool
+    {
+        return $this->validated;
+    }
 
     /**
      * @DocDescription(description="Whether the radios should appear next to one another or below one another")
@@ -18,16 +26,5 @@ class Radio extends \Twigger\Blade\Schema\Radio
     public function render()
     {
         return view('bootstrap-theme::radio');
-    }
-
-    public function validClasses(): string
-    {
-        if($this->validated === true) {
-            if($this->isValid() === true) {
-                return 'is-valid';
-            }
-            return 'is-invalid';
-        }
-        return '';
     }
 }
