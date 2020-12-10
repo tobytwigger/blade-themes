@@ -2,11 +2,9 @@
     'class' => sprintf('alert alert-%s %s', $variant, ($dismissible === true ? 'alert-dismissible fade show' : '')),
     'role' => 'alert'
 ])}} >
-    <span class="sr-only">{{$variantAlt()}}.</span>
+    <span class="visually-hidden">{{$variantAlt()}}</span>
     {{$slot}}
     @if($dismissible === true)
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     @endif
 </div>
