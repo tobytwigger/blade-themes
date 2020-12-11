@@ -18,6 +18,7 @@ return [
         \Twigger\Blade\Schema\Password::class,
         \Twigger\Blade\Schema\Lists\ListGroup::class,
         \Twigger\Blade\Schema\Lists\ListItem::class,
-        \Twigger\Blade\Schema\FieldSet::class
+        \Twigger\Blade\Schema\FieldSet::class,
+        \Twigger\Blade\Schema\Card::class
     ]
 ];
