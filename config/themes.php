@@ -19,6 +19,13 @@ return [
         \Twigger\Blade\Schema\Lists\ListGroup::class,
         \Twigger\Blade\Schema\Lists\ListItem::class,
         \Twigger\Blade\Schema\FieldSet::class,
-        \Twigger\Blade\Schema\Card::class
+        \Twigger\Blade\Schema\Card::class,
+        \Twigger\Blade\Schema\Icon::class
+    ],
+
+    'bootstrap' => [
+        'font-awesome' => [
+            'key' => env('FONT_AWESOME_KEY')
+        ]
     ]
 ];

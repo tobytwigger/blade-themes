@@ -29,6 +29,7 @@ class BootstrapTheme extends ThemeDefinition
         return [
             '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">',
             sprintf('<link rel="stylesheet" href="%s">', asset('vendor/themes/bootstrap/customisation.css')),
+            sprintf('<script src="https://kit.fontawesome.com/%s.js" crossorigin="anonymous"></script>', config('themes.bootstrap.font-awesome.key'))
         ];
     }
 
