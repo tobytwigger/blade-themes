@@ -20,7 +20,9 @@ return [
         \Twigger\Blade\Schema\Lists\ListItem::class,
         \Twigger\Blade\Schema\FieldSet::class,
         \Twigger\Blade\Schema\Card::class,
-        \Twigger\Blade\Schema\Icon::class
+        \Twigger\Blade\Schema\Icon::class,
+
+        \Twigger\Blade\Themes\Bootstrap\Components\Layouts\Splash::class
     ],
 
     'bootstrap' => [
