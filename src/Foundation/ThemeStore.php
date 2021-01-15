@@ -2,8 +2,6 @@
 
 namespace Twigger\Blade\Foundation;
 
-use Twigger\Blade\Themes\Material\MaterialTheme;
-
 class ThemeStore
 {
 
